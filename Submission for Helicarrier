@@ -1,0 +1,28 @@
+// Rust program to find modular
+// inverse using Euclidean algorithm
+
+// Returns modulo inverse of a with respect
+// to module using Euclidean algorithm
+// assumption: a and module are coprimes,i.e.,
+// gcd(a, module) = 1
+fn mod_inv(a: isize, module: isize) -> isize {
+  let mut mn = (module, a);
+  let mut xy = (0, 1);
+ 
+  while mn.1 != 0 {
+    xy = (xy.1, xy.0 - (mn.0 / mn.1) * xy.1);
+    // mn is remainder now, process same as
+    // Euclidean algorithm
+    mn = (mn.1, mn.0 % mn.1);
+  }
+  
+ // Make xy.0 positive
+  while xy.0 < 0 {
+    xy.0 += module;
+  }
+  xy.0
+}
+ // Function call
+fn main() {
+  println!("{}", mod_inv(3, 11))
+}
